@@ -28,10 +28,15 @@ class DreamBoothDataset(Dataset):
         self.instance_data_root = Path(instance_data_root)
         if not self.instance_data_root.exists():
             raise ValueError("Instance images root doesn't exists.")
-
-        self.instance_images_path = sorted(list(Path(instance_data_root).iterdir()))
-        self.num_instance_images = len(self.instance_images_path)
         
+        # Add this line to filter for only image files
+        self.instance_images_path = sorted([p for p in Path(instance_data_root).iterdir() 
+                                        if p.suffix.lower() in ['.jpg', '.jpeg', '.png', '.bmp']])
+        
+        self.num_instance_images = len(self.instance_images_path)
+        if self.num_instance_images == 0:
+            raise ValueError(f"No image files found in {instance_data_root}")
+            
         if instance_prompt_model is not None:
             self.instance_prompt = self.obtain_caption_for_each_image(
                 instance_prompt_model, self.instance_images_path, instance_prompt_model_token)
