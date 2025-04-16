@@ -23,8 +23,8 @@ Diffusion models, especially in combination with text-to-image conditioning, are
 git clone https://github.com/mahmoudzahran01/stable-diffusion-lora-comic-book
 cd stable-diffusion-lora-comic-book
 
-# Install dependencies
-pip install -r requirements.txt
+# Install in development mode
+pip install -e .
 ```
 
 ## Usage
@@ -71,7 +71,25 @@ comic_page.save("my_comic.jpg")
 
 ## Example Results
 
-[Examples will be added soon]
+![UnicornGirl Comic Book](https://github.com/mahmoudzahran01/stable-diffusion-lora-comic-book/raw/main/examples/unicorn_adventure.jpg)
+
+This comic page was generated using a character model trained on just a few images. The story follows a UnicornGirl character as she:
+1. Wakes up in a mysterious forest filled with glowing plants
+2. Discovers a strange crystal emitting a blue light
+3. Confronts a mysterious witch demanding the artifact
+4. Escapes with the artifact, determined to discover its secrets
+
+## Using the Command Line
+
+You can also use the provided command line scripts:
+
+```bash
+# Train a model
+python examples/train_model.py --image_dir ./images --token "<UnicornGirl>" --steps 1000
+
+# Generate a comic
+python examples/generate_comic.py --model_path ./output/__\<UnicornGirl\>/checkpoint-1000_0.0001 --character_token "<UnicornGirl>" --title "The UnicornGirl Adventure" --output unicorn_adventure.jpg
+```
 
 ## License
 
